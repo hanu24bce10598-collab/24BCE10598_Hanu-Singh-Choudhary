@@ -1,0 +1,55 @@
+-- Create Database
+CREATE DATABASE VITBHOPAL;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Create CSE Table
+CREATE TABLE CSE (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+-- Insert Data into CSE
+INSERT INTO CSE VALUES
+(1, 'Hanu', 92),
+(2, 'Raj', 85),
+(3, 'Pratik', 88),
+(4, 'Yuvraj', 79),
+(5, 'Pradhyum', 95);
+
+-- Create MECH Table
+CREATE TABLE MECH (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+-- Insert Data into MECH
+INSERT INTO MECH VALUES
+(1, 'Aman', 75),
+(2, 'Rohit', 81),
+(3, 'Karan', 69),
+(4, 'Vivek', 73),
+(5, 'Sahil', 80);
+
+-- Create EEE Table
+CREATE TABLE EEE (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+-- Insert Data into EEE
+INSERT INTO EEE VALUES
+(1, 'Arjun', 84),
+(2, 'Deepak', 77),
+(3, 'Manish', 90),
+(4, 'Harsh', 82),
+(5, 'Nitin', 76);
+
+-- Display Tables
+SELECT * FROM CSE;
+SELECT * FROM MECH;
+SELECT * FROM EEE;
