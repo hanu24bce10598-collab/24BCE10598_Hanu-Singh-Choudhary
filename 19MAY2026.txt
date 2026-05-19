@@ -1,0 +1,173 @@
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Display Worker Table
+SELECT * FROM Worker;
+
+-- BETWEEN Operator
+-- Display workers having salary between 80000 and 300000
+SELECT * FROM Worker
+WHERE SALARY BETWEEN 80000 AND 300000;
+
+-- NOT BETWEEN Operator
+-- Display workers having salary not between 80000 and 300000
+SELECT * FROM Worker
+WHERE SALARY NOT BETWEEN 80000 AND 300000;
+
+-- BETWEEN with Worker ID
+SELECT * FROM Worker
+WHERE WORKER_ID BETWEEN 2 AND 5;
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Display Worker Table
+SELECT * FROM Worker;
+
+-- Select only First Name and Salary
+SELECT FIRST_NAME, SALARY
+FROM Worker;
+
+-- WHERE Operator
+-- Display workers from HR department
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'HR';
+
+-- Display workers having salary greater than 100000
+SELECT * FROM Worker
+WHERE SALARY > 100000;
+
+-- Display worker with ID 3
+SELECT * FROM Worker
+WHERE WORKER_ID = 3;
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Display Worker Table
+SELECT * FROM Worker;
+
+-- AND Operator
+-- Display workers from Admin department having salary greater than 80000
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'Admin' AND SALARY > 80000;
+
+-- OR Operator
+-- Display workers from HR department or Account department
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'HR' OR DEPARTMENT = 'Account';
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Display Worker Table
+SELECT * FROM Worker;
+
+-- LIKE Operator
+-- Display workers whose first name starts with 'V'
+SELECT * FROM Worker
+WHERE FIRST_NAME LIKE 'V%';
+
+-- Display workers whose department ends with 'n'
+SELECT * FROM Worker
+WHERE DEPARTMENT LIKE '%n';
+
+-- Display workers whose first name contains 'i'
+SELECT * FROM Worker
+WHERE FIRST_NAME LIKE '%i%';
+
+-- =========================
+-- CASE OPERATOR IN SQL
+-- =========================
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Display Complete Worker Table
+SELECT * FROM Worker;
+
+-- =========================================
+-- CASE OPERATOR BASED ON SALARY
+-- =========================================
+
+SELECT
+    WORKER_ID,
+    FIRST_NAME,
+    LAST_NAME,
+    DEPARTMENT,
+    SALARY,
+
+    CASE
+        WHEN SALARY >= 400000 THEN 'Very High Salary'
+        WHEN SALARY BETWEEN 200000 AND 399999 THEN 'High Salary'
+        WHEN SALARY BETWEEN 100000 AND 199999 THEN 'Medium Salary'
+        ELSE 'Low Salary'
+    END AS Salary_Status
+
+FROM Worker;
+
+-- =========================================
+-- CASE OPERATOR BASED ON DEPARTMENT
+-- =========================================
+
+SELECT
+    WORKER_ID,
+    FIRST_NAME,
+    DEPARTMENT,
+
+    CASE
+        WHEN DEPARTMENT = 'HR' THEN 'Human Resource Department'
+        WHEN DEPARTMENT = 'Admin' THEN 'Administration Department'
+        WHEN DEPARTMENT = 'Account' THEN 'Accounts Department'
+        ELSE 'Other Department'
+    END AS Department_Status
+
+FROM Worker;
+
+-- =========================================
+-- CASE OPERATOR WITH BONUS
+-- =========================================
+
+SELECT
+    WORKER_ID,
+    FIRST_NAME,
+    SALARY,
+
+    CASE
+        WHEN SALARY >= 400000 THEN SALARY + 50000
+        WHEN SALARY BETWEEN 200000 AND 399999 THEN SALARY + 30000
+        ELSE SALARY + 10000
+    END AS Updated_Salary
+
+FROM Worker;
+
+-- =========================================
+-- CASE OPERATOR WITH PERFORMANCE STATUS
+-- =========================================
+
+SELECT
+    FIRST_NAME,
+    SALARY,
+
+    CASE
+        WHEN SALARY >= 500000 THEN 'Excellent Performance'
+        WHEN SALARY >= 200000 THEN 'Good Performance'
+        ELSE 'Average Performance'
+    END AS Performance_Status
+
+FROM Worker;
