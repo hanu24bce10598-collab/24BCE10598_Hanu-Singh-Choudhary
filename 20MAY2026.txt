@@ -1,0 +1,218 @@
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Create Persons Table
+CREATE TABLE Persons (
+    ID INT NOT NULL,
+    LastName VARCHAR(255) UNIQUE NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    Age INT
+);
+
+-- Describe Persons Table
+DESC Persons;
+
+-- Insert Records
+INSERT INTO Persons VALUES
+(1, 'Sharma', 'Aman', 21),
+(2, 'Verma', 'Rohit', 22),
+(3, 'Singh', 'Hanu', 20);
+
+-- Display Persons Table
+SELECT * FROM Persons;
+
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Create Persons Table with CHECK Constraint
+CREATE TABLE Persons (
+    ID INT NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255),
+    Age INT,
+    CHECK (Age >= 18)
+);
+
+-- Describe Table
+DESC Persons;
+
+-- Add CHECK Constraint using ALTER TABLE
+ALTER TABLE Persons
+ADD CHECK (Age >= 18);
+
+-- Insert Valid Records
+INSERT INTO Persons VALUES
+(1, 'Sharma', 'Aman', 21),
+(2, 'Verma', 'Rohit', 22);
+
+-- Display Table
+SELECT * FROM Persons;
+
+
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Create Persons Table
+CREATE TABLE Persons (
+    ID INT NOT NULL,
+    LastName VARCHAR(255) UNIQUE NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    Age INT
+);
+
+-- Describe Persons Table
+DESC Persons;
+
+-- Insert Record
+INSERT INTO Persons
+VALUES (101, 'V', 'Jayanth', NULL);
+
+-- Display Table
+SELECT * FROM Persons;
+
+-- Add UNIQUE Constraint on Age
+ALTER TABLE Persons
+ADD UNIQUE (Age);
+
+-- Drop UNIQUE Constraint on Age
+ALTER TABLE Persons
+DROP INDEX Age;
+
+
+-- Show Databases
+SHOW DATABASES;
+
+-- Use Database
+USE VITBHOPAL;
+
+-- Create Persons Table
+CREATE TABLE Persons (
+    ID INT NOT NULL,
+    LastName VARCHAR(255) UNIQUE NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    Age INT
+);
+
+-- Describe Persons Table
+DESC Persons;
+
+-- Insert Record
+INSERT INTO Persons
+VALUES (101, 'V', 'Jayanth', NULL);
+
+-- Display Table
+SELECT * FROM Persons;
+
+-- Add UNIQUE Constraint
+ALTER TABLE Persons
+ADD UNIQUE (Age);
+
+-- Drop UNIQUE Constraint
+ALTER TABLE Persons
+DROP INDEX Age;
+
+-- Drop Persons Table
+DROP TABLE Persons;
+
+-- Create Persons Table with CHECK Constraint
+CREATE TABLE Persons (
+    Age INT NOT NULL,
+    CHECK (Age >= 18 AND Age <= 23)
+);
+
+-- Insert Record
+INSERT INTO Persons
+VALUES (21);
+
+-- Create Persons1 Table with DEFAULT Constraint
+CREATE TABLE Persons1 (
+    ID INT NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255),
+    Age INT,
+    City VARCHAR(255) DEFAULT 'Coimbatore'
+);
+
+-- Describe Persons1 Table
+DESC Persons1;
+
+-- Create Products Table
+CREATE TABLE Products (
+    pid INT PRIMARY KEY,
+    pname VARCHAR(100) NOT NULL,
+    prefNo INT NOT NULL UNIQUE
+);
+
+-- Describe Products Table
+DESC Products;
+
+-- Insert Record
+INSERT INTO Products
+VALUES (102, 'Furniture', 19930);
+
+-- Display Products Table
+SELECT * FROM Products;
+
+-- Add Primary Key
+ALTER TABLE Persons
+ADD PRIMARY KEY (Age);
+
+-- Drop Primary Key
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+
+-- Drop Products Table
+DROP TABLE Products;
+
+-- Create Category Table
+CREATE TABLE Category (
+    cid INT PRIMARY KEY,
+    cname VARCHAR(100) NOT NULL
+);
+
+-- Insert Records
+INSERT INTO Category
+VALUES
+(101, 'Electronics'),
+(102, 'Home App');
+
+-- Display Category Table
+SELECT * FROM Category;
+
+-- Create Products Table with Foreign Key
+CREATE TABLE Products (
+    pid INT PRIMARY KEY,
+    pname VARCHAR(100) NOT NULL,
+    cid INT,
+    FOREIGN KEY (cid) REFERENCES Category(cid)
+);
+
+-- Describe Products Table
+DESC Products;
+
+-- Delete Record from Category
+DELETE FROM Category
+WHERE cid = 101;
+
+-- Update Query Example
+UPDATE Category
+SET cname = 'Home Appliances'
+WHERE cid = 102;
+
+-- Insert Record into Products
+INSERT INTO Products
+VALUES (504, 'Power Bank Samsung', 102);
+
+-- Display Products Table
+SELECT * FROM Products;
