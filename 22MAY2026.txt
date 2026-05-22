@@ -1,0 +1,56 @@
+use VITBHOPAL;
+
+create table departments(
+did int primary key,
+dname varchar(25) not null unique
+);
+
+insert into departments values
+(101,'CSE'),
+(102,'MECH'),
+(103,'EEE'),
+(104,'ECE'),
+(105,'AIML');
+
+select * from departments order by did;
+
+create table HOD(
+hid int primary key,
+hname varchar(20) not null unique
+);
+
+insert into HOD values
+(101,'Arun'),
+(102,'Jayanth'),
+(104,'Karthik'),
+(106,'Murali');
+
+select * from HOD;
+
+-- CROSS JOIN
+
+select *
+from departments
+cross join HOD
+order by did asc;
+
+-- INNER JOIN
+
+select *
+from departments
+inner join HOD
+on departments.did = HOD.hid;
+
+-- NATURAL JOIN
+
+select *
+from departments
+natural join HOD;
+
+-- LEFT OUTER JOIN
+
+select *
+from departments
+left outer join HOD
+on departments.did = HOD.hid
+order by did asc;
