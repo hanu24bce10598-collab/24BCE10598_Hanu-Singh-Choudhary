@@ -1,0 +1,98 @@
+-- Question 1
+
+select 
+FIRST_NAME as WORKER_NAME,
+SALARY,
+DEPARTMENT
+from Worker;
+
+-- Question 2
+
+select distinct DEPARTMENT
+from Worker;
+
+select FIRST_NAME, DEPARTMENT
+from Worker
+where DEPARTMENT in ('HR','Admin','Account');
+
+-- Question 3
+
+select *
+from Worker
+where FIRST_NAME in ('Vipul','Satish');
+
+-- Question 4
+
+select
+WORKER_ID,
+FIRST_NAME,
+LAST_NAME,
+SALARY,
+DEPARTMENT
+from Worker
+where FIRST_NAME like '%a%';
+
+-- Question 5
+
+select
+WORKER_ID,
+FIRST_NAME,
+LAST_NAME,
+SALARY,
+DEPARTMENT
+from Worker
+where FIRST_NAME like '%a';
+
+--Question 6
+select *
+from Worker
+where DEPARTMENT='Admin'
+and SALARY between 100000 and 500000;
+
+-- Question 7
+
+select count(*) as Total_Admin_Employees
+from Worker
+where DEPARTMENT = 'Admin';
+
+-- Question 8
+
+select max(SALARY) as Second_Highest_Salary
+from Worker
+where SALARY < (
+    
+    select max(SALARY)
+    from Worker
+
+);
+
+
+-- Question 9
+
+select DEPARTMENT, count(*) as Total_Employees
+from Worker
+group by DEPARTMENT
+having count(*) < 3;
+
+-- Question 10
+
+select 
+DEPARTMENT,
+count(*) as Total_Employees
+from Worker
+group by DEPARTMENT;
+
+-- Question 11
+
+select 
+FIRST_NAME,
+DEPARTMENT,
+SALARY
+from Worker w1
+where SALARY = (
+
+    select max(SALARY)
+    from Worker w2
+    where w1.DEPARTMENT = w2.DEPARTMENT
+
+);
