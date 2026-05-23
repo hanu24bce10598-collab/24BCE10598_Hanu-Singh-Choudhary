@@ -1,0 +1,155 @@
+-- Question 1
+
+select e.employee_name,
+d.dept_name,
+d.location_id
+from Employees e
+join Departments d
+on e.dept_id = d.dept_id;
+
+-- Question 3
+
+select e.employee_name,
+p.project_name
+from Employees e
+join Assignments a
+on e.employee_id = a.employee_id
+join Projects p
+on a.project_id = p.project_id
+where p.client_name='GlobalTech Solutions';
+
+-- Question 4
+
+select d.dept_name
+from Departments d
+left join Employees e
+on d.dept_id = e.dept_id
+where e.employee_id is null;
+
+-- Question 5
+
+select m.employee_name as Manager_Name,
+d.dept_name,
+count(e.employee_id) as total_reports
+from Employees e
+join Employees m
+on e.manager_id = m.employee_id
+join Departments d
+on m.dept_id = d.dept_id
+group by m.employee_name,d.dept_name;
+
+-- Question 6
+
+select e.employee_name,
+avg(a.hours_worked) as avg_hours
+from Employees e
+join Assignments a
+on e.employee_id = a.employee_id
+group by e.employee_name;
+
+-- Question 8
+
+select p.client_name,
+sum(a.hours_worked) as total_hours
+from Projects p
+join Assignments a
+on p.project_id = a.project_id
+group by p.client_name
+having sum(a.hours_worked) > 500;
+
+-- Question 10
+
+select p.project_name,
+count(a.employee_id) as total_employees
+from Projects p
+join Assignments a
+on p.project_id = a.project_id
+group by p.project_name
+having count(a.employee_id) > 5;
+
+-- Question 12
+
+select d.dept_name
+from Departments d
+join Employees e
+on d.dept_id=e.dept_id
+join Assignments a
+on e.employee_id=a.employee_id
+group by d.dept_name
+having count(distinct a.project_id) > 1;
+
+-- Question 13
+
+select e.employee_name,
+p.project_name
+from Employees e
+join Assignments a
+on e.employee_id=a.employee_id
+join Projects p
+on a.project_id=p.project_id
+where a.hours_worked < 10;
+
+
+-- Question 14
+
+select p.project_name
+from Projects p
+left join Assignments a
+on p.project_id=a.project_id
+where a.assignment_id is null;
+
+-- Question 16
+
+select e.employee_name,
+min(a.start_date) as oldest_project
+from Employees e
+join Assignments a
+on e.employee_id=a.employee_id
+group by e.employee_name;
+
+-- Question 17
+
+select project_name,
+date_format(start_date,'%Y') as year
+from Projects
+where year(start_date)=2023;
+
+-- Question 18
+
+select employee_name,
+ifnull(cast(manager_id as char),'CEO') as manager
+from Employees;
+
+-- Question 21
+
+select e.employee_name as Employee,
+m.employee_name as Manager
+from Employees e
+left join Employees m
+on e.manager_id = m.employee_id;
+
+-- Question 22
+
+with project_cte as
+(
+select p.project_name,
+count(distinct a.employee_id) as total_emp
+from Projects p
+left join Assignments a
+on p.project_id=a.project_id
+group by p.project_name
+)
+
+select *
+from project_cte;
+
+-- Question 23
+
+select distinct e.employee_name
+from Assignments a1
+join Assignments a2
+on a1.project_id = a2.project_id
+join Employees e
+on a2.employee_id = e.employee_id
+where a1.employee_id = 101
+and a2.employee_id <> 101;
