@@ -1,0 +1,188 @@
+-- Question 1 
+
+select e.name, j.job_title, d.dept_name
+from Employees e
+join Jobs j on e.job_id = j.job_id
+join Departments d on e.dept_id = d.dept_id;
+
+-- Question 2
+
+select name, salary
+from Employees
+where salary > (
+
+select avg(salary)
+from Employees
+where dept_id = (
+select dept_id from Departments
+where dept_name='IT')
+
+);
+
+-- Question 3
+
+select d.dept_name,
+sum(e.salary) as total_salary
+from Employees e
+join Departments d
+on e.dept_id = d.dept_id
+group by d.dept_name;
+
+-- Question 4
+
+select d.dept_name,
+count(e.emp_id) as total_emp,
+avg(e.salary) as avg_salary
+from Employees e
+join Departments d
+on e.dept_id = d.dept_id
+group by d.dept_name
+having count(e.emp_id) > 2
+and avg(e.salary) > 70000;
+
+-- Question 5
+
+select e.name as Employee,
+m.name as Manager
+from Employees e
+left join Employees m
+on e.manager_id = m.emp_id;
+
+-- Question 6
+
+select name, salary
+from Employees
+order by salary desc
+limit 3;
+
+-- Question 7
+
+select e.name, j.job_title, d.location
+from Employees e
+join Jobs j on e.job_id = j.job_id
+join Departments d on e.dept_id = d.dept_id
+where j.job_title='Developer'
+and d.location='San Francisco';
+
+-- Question 9
+
+select j.job_title,
+max(e.salary) as max_salary
+from Employees e
+join Jobs j
+on e.job_id = j.job_id
+group by j.job_title
+having max(e.salary) < 100000;
+
+-- Question 11
+
+select d.dept_name, e.name
+from Departments d
+left join Employees e
+on d.dept_id = e.dept_id;
+
+-- Question 12
+
+select name, salary, hire_date
+from Employees
+where hire_date between '2018-01-01' and '2020-12-31'
+and salary > 60000;
+
+-- Question 13
+
+select e1.name, e1.salary
+from Employees e1
+where salary > (
+
+select avg(e2.salary)
+from Employees e2
+where e1.dept_id = e2.dept_id
+
+);
+
+-- Question 14
+
+select e.name, j.job_title, e.salary
+from Employees e
+join Jobs j
+on e.job_id = j.job_id
+where e.emp_id = 504;
+
+-- Question 15
+
+select manager_id,
+min(salary) as minimum_salary
+from Employees
+where manager_id is not null
+group by manager_id;
+
+-- Question 16
+
+select dept_name
+from Departments
+where dept_id not in (
+
+select distinct dept_id
+from Employees
+where job_id = (
+select job_id from Jobs
+where job_title='Analyst')
+
+);
+
+-- Question 17
+
+select
+max(salary) - min(salary) as salary_difference
+from Employees;
+
+-- Question 19
+
+select manager_id,
+count(*) as total_people
+from Employees
+where manager_id is not null
+group by manager_id
+having count(*) > 2;
+
+-- Question 20
+
+select name, salary
+from Employees
+order by salary desc
+limit 1 offset 2;
+
+-- Question 21
+
+select j.job_title,
+count(e.emp_id) as total_employees
+from Jobs j
+left join Employees e
+on j.job_id = e.job_id
+group by j.job_title;
+
+-- Question 24
+
+select dept_name
+from Departments
+where dept_id = (
+
+select dept_id
+from Employees
+group by dept_id
+order by sum(salary) desc
+limit 1
+
+);
+
+-- Question 25
+
+select name
+from Employees
+where manager_id = (
+
+select emp_id
+from Employees
+where name='Charlie'
+
+);
