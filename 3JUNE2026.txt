@@ -1,0 +1,125 @@
+package mongo;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import org.bson.Document;
+
+public class MongoDBConnection {
+
+    public static void main(String[] args) {
+
+        // Connect to MongoDB
+        MongoClient mongoClient = new MongoClient("localhost", 27017);
+
+        // Access Database
+        MongoDatabase database = mongoClient.getDatabase("vitcampus");
+
+        // Access Collection
+        MongoCollection<Document> collection =
+                database.getCollection("StudentDetails");
+
+        // ==========================
+        // INSERT MULTIPLE RECORDS
+        // ==========================
+        collection.insertMany(java.util.Arrays.asList(
+
+                new Document("rollno", 101)
+                        .append("name", "Hanu Choudhary")
+                        .append("branch", "CSE")
+                        .append("cgpa", 8.5),
+
+                new Document("rollno", 102)
+                        .append("name", "Rohan Singh")
+                        .append("branch", "CSE")
+                        .append("cgpa", 8.2),
+
+                new Document("rollno", 103)
+                        .append("name", "Priyansh Verma")
+                        .append("branch", "ECE")
+                        .append("cgpa", 7.8)
+
+        ));
+
+        System.out.println("Records Inserted Successfully");
+
+        // ==========================
+        // DISPLAY ALL RECORDS
+        // ==========================
+        System.out.println("\nAll Students:");
+
+        FindIterable<Document> students = collection.find();
+
+        for (Document doc : students) {
+            System.out.println(doc.toJson());
+        }
+
+        // ==========================
+        // FIND PARTICULAR STUDENT
+        // ==========================
+        Document student =
+                collection.find(Filters.eq("rollno", 102)).first();
+
+        System.out.println("\nStudent Found:");
+        System.out.println(student.toJson());
+
+        // ==========================
+        // UPDATE NAME
+        // ==========================
+        collection.updateOne(
+                Filters.eq("rollno", 102),
+                Updates.set("name", "Rohan Kumar")
+        );
+
+        // ==========================
+        // UPDATE CGPA
+        // ==========================
+        collection.updateOne(
+                Filters.eq("rollno", 103),
+                Updates.set("cgpa", 8.4)
+        );
+
+        System.out.println("\nRecords Updated");
+
+        // ==========================
+        // REPLACE COMPLETE DOCUMENT
+        // ==========================
+        Document newStudent = new Document("rollno", 103)
+                .append("name", "Arjun Mehta")
+                .append("branch", "AIML")
+                .append("cgpa", 9.1);
+
+        collection.replaceOne(
+                Filters.eq("rollno", 103),
+                newStudent
+        );
+
+        System.out.println("\nDocument Replaced");
+
+        // ==========================
+        // DELETE ONE RECORD
+        // ==========================
+        collection.deleteOne(
+                Filters.eq("rollno", 101)
+        );
+
+        System.out.println("\nRecord Deleted");
+
+        // ==========================
+        // FINAL RECORDS
+        // ==========================
+        System.out.println("\nRemaining Records:");
+
+        FindIterable<Document> finalStudents = collection.find();
+
+        for (Document doc : finalStudents) {
+            System.out.println(doc.toJson());
+        }
+
+        // Close Connection
+        mongoClient.close();
+    }
+}
